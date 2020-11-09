@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AnketniSustavZaKucanstvoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Anketa">
+          <Key>
+            <PropertyRef Name="IDAnketa" />
+          </Key>
+          <Property Name="IDAnketa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IznosHraneZaProsliMjesec" Type="money" Nullable="false" />
+          <Property Name="IznosRacunaZaProsliMjesec" Type="money" Nullable="false" />
+          <Property Name="IznosZabaveZaProsliMjesec" Type="money" Nullable="false" />
+          <Property Name="IznosOstalihIzdatakaZaProsliMjesec" Type="money" Nullable="false" />
+          <Property Name="KucanstvoID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="IDGrad" />
+          </Key>
+          <Property Name="IDGrad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kucanstvo">
+          <Key>
+            <PropertyRef Name="IDKucanstvo" />
+          </Key>
+          <Property Name="IDKucanstvo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sifra" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="VlasnikKucanstvaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VlasnikKucanstva">
+          <Key>
+            <PropertyRef Name="IDVlasnikKucanstva" />
+          </Key>
+          <Property Name="IDVlasnikKucanstva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ulica" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KucniBroj" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="GradID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Anketa_IDKucanstvo">
+          <End Role="Kucanstvo" Type="Self.Kucanstvo" Multiplicity="1" />
+          <End Role="Anketa" Type="Self.Anketa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kucanstvo">
+              <PropertyRef Name="IDKucanstvo" />
+            </Principal>
+            <Dependent Role="Anketa">
+              <PropertyRef Name="KucanstvoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kucanstvo_IDVlasnikKucanstva">
+          <End Role="VlasnikKucanstva" Type="Self.VlasnikKucanstva" Multiplicity="1" />
+          <End Role="Kucanstvo" Type="Self.Kucanstvo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VlasnikKucanstva">
+              <PropertyRef Name="IDVlasnikKucanstva" />
+            </Principal>
+            <Dependent Role="Kucanstvo">
+              <PropertyRef Name="VlasnikKucanstvaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VlasnikKucanstva_IDGrad">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="1" />
+          <End Role="VlasnikKucanstva" Type="Self.VlasnikKucanstva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="IDGrad" />
+            </Principal>
+            <Dependent Role="VlasnikKucanstva">
+              <PropertyRef Name="GradID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AnketniSustavZaKucanstvoModelStoreContainer">
+          <EntitySet Name="Anketa" EntityType="Self.Anketa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grad" EntityType="Self.Grad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kucanstvo" EntityType="Self.Kucanstvo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VlasnikKucanstva" EntityType="Self.VlasnikKucanstva" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Anketa_IDKucanstvo" Association="Self.FK_Anketa_IDKucanstvo">
+            <End Role="Kucanstvo" EntitySet="Kucanstvo" />
+            <End Role="Anketa" EntitySet="Anketa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kucanstvo_IDVlasnikKucanstva" Association="Self.FK_Kucanstvo_IDVlasnikKucanstva">
+            <End Role="VlasnikKucanstva" EntitySet="VlasnikKucanstva" />
+            <End Role="Kucanstvo" EntitySet="Kucanstvo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VlasnikKucanstva_IDGrad" Association="Self.FK_VlasnikKucanstva_IDGrad">
+            <End Role="Grad" EntitySet="Grad" />
+            <End Role="VlasnikKucanstva" EntitySet="VlasnikKucanstva" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AnketniSustavZaKucanstvoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Anketa">
+          <Key>
+            <PropertyRef Name="IDAnketa" />
+          </Key>
+          <Property Name="IDAnketa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IznosHraneZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IznosRacunaZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IznosZabaveZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IznosOstalihIzdatakaZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="KucanstvoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kucanstvo" Relationship="Self.FK_Anketa_IDKucanstvo" FromRole="Anketa" ToRole="Kucanstvo" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="IDGrad" />
+          </Key>
+          <Property Name="IDGrad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="VlasnikKucanstvas" Relationship="Self.FK_VlasnikKucanstva_IDGrad" FromRole="Grad" ToRole="VlasnikKucanstva" />
+        </EntityType>
+        <EntityType Name="Kucanstvo">
+          <Key>
+            <PropertyRef Name="IDKucanstvo" />
+          </Key>
+          <Property Name="IDKucanstvo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sifra" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VlasnikKucanstvaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Anketas" Relationship="Self.FK_Anketa_IDKucanstvo" FromRole="Kucanstvo" ToRole="Anketa" />
+          <NavigationProperty Name="VlasnikKucanstva" Relationship="Self.FK_Kucanstvo_IDVlasnikKucanstva" FromRole="Kucanstvo" ToRole="VlasnikKucanstva" />
+        </EntityType>
+        <EntityType Name="VlasnikKucanstva">
+          <Key>
+            <PropertyRef Name="IDVlasnikKucanstva" />
+          </Key>
+          <Property Name="IDVlasnikKucanstva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ulica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KucniBroj" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GradID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Grad" Relationship="Self.FK_VlasnikKucanstva_IDGrad" FromRole="VlasnikKucanstva" ToRole="Grad" />
+          <NavigationProperty Name="Kucanstvoes" Relationship="Self.FK_Kucanstvo_IDVlasnikKucanstva" FromRole="VlasnikKucanstva" ToRole="Kucanstvo" />
+        </EntityType>
+        <Association Name="FK_Anketa_IDKucanstvo">
+          <End Role="Kucanstvo" Type="Self.Kucanstvo" Multiplicity="1" />
+          <End Role="Anketa" Type="Self.Anketa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kucanstvo">
+              <PropertyRef Name="IDKucanstvo" />
+            </Principal>
+            <Dependent Role="Anketa">
+              <PropertyRef Name="KucanstvoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VlasnikKucanstva_IDGrad">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="1" />
+          <End Role="VlasnikKucanstva" Type="Self.VlasnikKucanstva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="IDGrad" />
+            </Principal>
+            <Dependent Role="VlasnikKucanstva">
+              <PropertyRef Name="GradID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kucanstvo_IDVlasnikKucanstva">
+          <End Role="VlasnikKucanstva" Type="Self.VlasnikKucanstva" Multiplicity="1" />
+          <End Role="Kucanstvo" Type="Self.Kucanstvo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VlasnikKucanstva">
+              <PropertyRef Name="IDVlasnikKucanstva" />
+            </Principal>
+            <Dependent Role="Kucanstvo">
+              <PropertyRef Name="VlasnikKucanstvaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AnketniSustavZaKucanstvoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Anketas" EntityType="Self.Anketa" />
+          <EntitySet Name="Grads" EntityType="Self.Grad" />
+          <EntitySet Name="Kucanstvoes" EntityType="Self.Kucanstvo" />
+          <EntitySet Name="VlasnikKucanstvas" EntityType="Self.VlasnikKucanstva" />
+          <AssociationSet Name="FK_Anketa_IDKucanstvo" Association="Self.FK_Anketa_IDKucanstvo">
+            <End Role="Kucanstvo" EntitySet="Kucanstvoes" />
+            <End Role="Anketa" EntitySet="Anketas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VlasnikKucanstva_IDGrad" Association="Self.FK_VlasnikKucanstva_IDGrad">
+            <End Role="Grad" EntitySet="Grads" />
+            <End Role="VlasnikKucanstva" EntitySet="VlasnikKucanstvas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kucanstvo_IDVlasnikKucanstva" Association="Self.FK_Kucanstvo_IDVlasnikKucanstva">
+            <End Role="VlasnikKucanstva" EntitySet="VlasnikKucanstvas" />
+            <End Role="Kucanstvo" EntitySet="Kucanstvoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AnketniSustavZaKucanstvoModelStoreContainer" CdmEntityContainer="AnketniSustavZaKucanstvoEntities">
+          <EntitySetMapping Name="Anketas">
+            <EntityTypeMapping TypeName="AnketniSustavZaKucanstvoModel.Anketa">
+              <MappingFragment StoreEntitySet="Anketa">
+                <ScalarProperty Name="IDAnketa" ColumnName="IDAnketa" />
+                <ScalarProperty Name="IznosHraneZaProsliMjesec" ColumnName="IznosHraneZaProsliMjesec" />
+                <ScalarProperty Name="IznosRacunaZaProsliMjesec" ColumnName="IznosRacunaZaProsliMjesec" />
+                <ScalarProperty Name="IznosZabaveZaProsliMjesec" ColumnName="IznosZabaveZaProsliMjesec" />
+                <ScalarProperty Name="IznosOstalihIzdatakaZaProsliMjesec" ColumnName="IznosOstalihIzdatakaZaProsliMjesec" />
+                <ScalarProperty Name="KucanstvoID" ColumnName="KucanstvoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grads">
+            <EntityTypeMapping TypeName="AnketniSustavZaKucanstvoModel.Grad">
+              <MappingFragment StoreEntitySet="Grad">
+                <ScalarProperty Name="IDGrad" ColumnName="IDGrad" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kucanstvoes">
+            <EntityTypeMapping TypeName="AnketniSustavZaKucanstvoModel.Kucanstvo">
+              <MappingFragment StoreEntitySet="Kucanstvo">
+                <ScalarProperty Name="IDKucanstvo" ColumnName="IDKucanstvo" />
+                <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+                <ScalarProperty Name="VlasnikKucanstvaID" ColumnName="VlasnikKucanstvaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VlasnikKucanstvas">
+            <EntityTypeMapping TypeName="AnketniSustavZaKucanstvoModel.VlasnikKucanstva">
+              <MappingFragment StoreEntitySet="VlasnikKucanstva">
+                <ScalarProperty Name="IDVlasnikKucanstva" ColumnName="IDVlasnikKucanstva" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ulica" ColumnName="Ulica" />
+                <ScalarProperty Name="KucniBroj" ColumnName="KucniBroj" />
+                <ScalarProperty Name="GradID" ColumnName="GradID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

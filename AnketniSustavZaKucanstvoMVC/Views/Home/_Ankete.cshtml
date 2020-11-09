@@ -1,0 +1,46 @@
+﻿<div class="container">
+
+    <div id="myModal" class="modal hide fade" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Obrazac za anketu</h5>
+                    <button type="button" class="close pull-lg-right" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_Obrazac")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="button" value="Osvježi sve podatke" class="btn btn-primary" id="btnOsvjeziSvePodatke" />
+
+    <br />
+    <br />
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Ankete iz baze</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive tblWrapper placeholderAnketeFromDb"></div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Ankete u memoriji</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive tblWrapper placeholderAnketeFromMemory"></div>
+        </div>
+    </div>
+
+    <br />
+
+    <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="Dodaj anketu" />
+</div>

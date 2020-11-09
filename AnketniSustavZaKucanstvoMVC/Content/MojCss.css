@@ -1,0 +1,15 @@
+﻿.tblWrapper {
+    max-height: 400px;
+}
+
+body.modal-open {
+    margin-right: 0px
+}
+
+.modal-open {
+    overflow: hidden;
+}
+
+header {
+    padding-right: 0px !important;
+}

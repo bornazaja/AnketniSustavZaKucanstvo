@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0468104c2ad6464dac270a5a132c9ea6" Name="Diagram1">
+        <EntityTypeShape EntityType="AnketniSustavZaKucanstvoModel.Anketa" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketniSustavZaKucanstvoModel.Grad" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketniSustavZaKucanstvoModel.Kucanstvo" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnketniSustavZaKucanstvoModel.VlasnikKucanstva" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="AnketniSustavZaKucanstvoModel.FK_Anketa_IDKucanstvo" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketniSustavZaKucanstvoModel.FK_VlasnikKucanstva_IDGrad" ManuallyRouted="false" />
+        <AssociationConnector Association="AnketniSustavZaKucanstvoModel.FK_Kucanstvo_IDVlasnikKucanstva" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
