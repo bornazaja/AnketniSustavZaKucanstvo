@@ -14,5 +14,5 @@ Zahtjevi
 Upute
 * Preuzeti i *unzipati* projekt
 * Pokrenuti SQL skriptu u MS SQL Server Managament Studiu koja se nalazi u mapi `AnketniSustavZaKucanstvo/AnketniSustavZaKucanstvoLibrary/sql/AnketniSutstavZaKucanstvoSkripta.sql`
-* Po potrebi u projektu `AnketniSustavZaKucanstvoMVC` promijeniti *connection string* koji se nalazi u `Web.config` datoteci u *tagu* `<connectionsStrings></connectionsStrings>`
+* Po potrebi u projektu `AnketniSustavZaKucanstvoMVC` promijeniti *connection string* koji se nalazi u `Web.config` datoteci u *tagu* `<connectionStrings></connectionStrings>`
 * Pokrenuti `AnketniSustavZaKucanstvoMVC` projekt u Visual Studiu
