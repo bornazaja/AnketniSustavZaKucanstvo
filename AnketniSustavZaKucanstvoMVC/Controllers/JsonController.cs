@@ -26,20 +26,20 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
 
         public ActionResult GetAnkete()
         {
-            var list = databaseService.AnketaRepository.GetAnketeWithKucanstvo().Select(ak => new
+            var list = databaseService.AnketaRepository.GetAnketeWithKucanstvo().Select(a => new
             {
-                IDAnketa = ak.IDAnketa,
-                KucanstvoID = ak.Kucanstvo.IDKucanstvo,
-                Sifra = ak.Kucanstvo.Sifra,
-                Ime = ak.Kucanstvo.VlasnikKucanstva.Ime,
-                Prezime = ak.Kucanstvo.VlasnikKucanstva.Prezime,
-                Ulica = ak.Kucanstvo.VlasnikKucanstva.Ulica,
-                KucniBroj = ak.Kucanstvo.VlasnikKucanstva.KucniBroj,
-                Grad = ak.Kucanstvo.VlasnikKucanstva.Grad.Naziv,
-                IznosHraneZaProsliMjesec = ak.IznosHraneZaProsliMjesec,
-                IznosRacunaZaProsliMjesec = ak.IznosRacunaZaProsliMjesec,
-                IznosZabaveZaProsliMjesec = ak.IznosZabaveZaProsliMjesec,
-                IznosOstalihIzdatakaZaProsliMjesec = ak.IznosOstalihIzdatakaZaProsliMjesec,
+                IDAnketa = a.IDAnketa,
+                KucanstvoID = a.Kucanstvo.IDKucanstvo,
+                Sifra = a.Kucanstvo.Sifra,
+                Ime = a.Kucanstvo.VlasnikKucanstva.Ime,
+                Prezime = a.Kucanstvo.VlasnikKucanstva.Prezime,
+                Ulica = a.Kucanstvo.VlasnikKucanstva.Ulica,
+                KucniBroj = a.Kucanstvo.VlasnikKucanstva.KucniBroj,
+                Grad = a.Kucanstvo.VlasnikKucanstva.Grad.Naziv,
+                IznosHraneZaProsliMjesec = a.IznosHraneZaProsliMjesec,
+                IznosRacunaZaProsliMjesec = a.IznosRacunaZaProsliMjesec,
+                IznosZabaveZaProsliMjesec = a.IznosZabaveZaProsliMjesec,
+                IznosOstalihIzdatakaZaProsliMjesec = a.IznosOstalihIzdatakaZaProsliMjesec,
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }

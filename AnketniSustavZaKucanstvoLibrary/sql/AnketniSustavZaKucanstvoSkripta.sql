@@ -5,7 +5,6 @@ GO
 USE AnketniSustavZaKucanstvo
 GO
 
-
 CREATE TABLE Grad
 (
 IDGrad INT CONSTRAINT PK_IDGrad PRIMARY KEY IDENTITY,
@@ -23,6 +22,7 @@ Ulica NVARCHAR(50) NOT NULL,
 KucniBroj NVARCHAR(20) NOT NULL,
 GradID INT CONSTRAINT FK_VlasnikKucanstva_IDGrad FOREIGN KEY REFERENCES Grad(IDGrad) NOT NULL
 )
+
 GO
 
 CREATE TABLE Kucanstvo
@@ -31,6 +31,7 @@ IDKucanstvo INT CONSTRAINT PK_IDKucanstvo PRIMARY KEY IDENTITY,
 Sifra NVARCHAR(10) UNIQUE NOT NULL,
 VlasnikKucanstvaID INT CONSTRAINT FK_Kucanstvo_IDVlasnikKucanstva FOREIGN KEY REFERENCES VlasnikKucanstva(IDVlasnikKucanstva) NOT NULL,
 )
+
 GO
 
 CREATE TABLE Anketa
@@ -42,6 +43,7 @@ IznosZabaveZaProsliMjesec MONEY NOT NULL,
 IznosOstalihIzdatakaZaProsliMjesec MONEY NOT NULL,
 KucanstvoID INT CONSTRAINT FK_Anketa_IDKucanstvo FOREIGN KEY REFERENCES Kucanstvo(IDKucanstvo) NOT NULL
 )
+
 GO
 
 INSERT INTO Grad(Naziv) VALUES('Zagreb')
@@ -66,8 +68,8 @@ INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Tom
 INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Goran', 'Goranić', 'Meštrovićeva', '12', 6)
 INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Hrvoje', 'Hrvojić', 'Zvonimirova', '15', 7)
 INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Bruno', 'Brunić', 'Antićeva', '11', 7)
-INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Marko', 'Markic', 'Gajeva', '16', 1)
-INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Fran', 'Franic', 'Ulica', '5', 1)
+INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Marko', 'Markić', 'Gajeva', '16', 1)
+INSERT INTO VlasnikKucanstva(Ime, Prezime, Ulica, KucniBroj, GradID) VALUES('Fran', 'Franić', 'Tomašićeva', '5', 1)
 
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('2121212121', 1)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('3248484848', 2)

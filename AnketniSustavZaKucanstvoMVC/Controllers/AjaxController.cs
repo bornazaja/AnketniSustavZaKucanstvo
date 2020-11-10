@@ -16,9 +16,9 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
         {
             try
             {
-                foreach (var item in ankete)
+                foreach (var anketa in ankete)
                 {
-                    databaseService.AnketaRepository.Add(item);
+                    databaseService.AnketaRepository.Add(anketa);
                 }
 
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
