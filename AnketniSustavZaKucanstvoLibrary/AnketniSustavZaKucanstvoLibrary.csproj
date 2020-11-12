@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AnketniSustavZaKucanstvoLibrary</RootNamespace>
     <AssemblyName>AnketniSustavZaKucanstvoLibrary</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,17 +31,45 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.6.0.0\lib\netstandard2.0\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,13 +78,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\Services\DatabaseService.cs" />
-    <Compile Include="DAL\Implementations\AnketaRepository.cs" />
-    <Compile Include="DAL\Implementations\GenericRepository.cs" />
-    <Compile Include="DAL\Implementations\KucanstvoRepository.cs" />
-    <Compile Include="DAL\Interfaces\IAnketaRepository.cs" />
-    <Compile Include="DAL\Interfaces\IKucanstvoRepository.cs" />
-    <Compile Include="DAL\Interfaces\IGenericRepository.cs" />
+    <Compile Include="BLL\DTO\AnketaDto.cs" />
+    <Compile Include="BLL\DTO\GradDto.cs" />
+    <Compile Include="BLL\DTO\KucanstvoDto.cs" />
+    <Compile Include="BLL\DTO\ValutaDto.cs" />
+    <Compile Include="BLL\DTO\VlasnikKucanstvaDto.cs" />
+    <Compile Include="BLL\Helpers\IoCHelper.cs" />
+    <Compile Include="BLL\Services\Implementations\AnketaService.cs" />
+    <Compile Include="BLL\Services\Implementations\GenericService.cs" />
+    <Compile Include="BLL\Services\Implementations\KucanstvoService.cs" />
+    <Compile Include="BLL\Services\Implementations\ValutaService.cs" />
+    <Compile Include="BLL\Services\Interfaces\IAnketaService.cs" />
+    <Compile Include="BLL\Services\Interfaces\IGenericService.cs" />
+    <Compile Include="BLL\Services\Interfaces\IKucanstvoService.cs" />
+    <Compile Include="BLL\Services\Interfaces\IValutaService.cs" />
     <Compile Include="DAL\Models\Anketa.cs">
       <DependentUpon>AnketniSustavZaKucanstvoModel.tt</DependentUpon>
     </Compile>
@@ -80,9 +116,20 @@
     <Compile Include="DAL\Models\Kucanstvo.cs">
       <DependentUpon>AnketniSustavZaKucanstvoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Models\Valuta.cs">
+      <DependentUpon>AnketniSustavZaKucanstvoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Models\VlasnikKucanstva.cs">
       <DependentUpon>AnketniSustavZaKucanstvoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Repositories\Implementations\AnketaRepository.cs" />
+    <Compile Include="DAL\Repositories\Implementations\GenericRepository.cs" />
+    <Compile Include="DAL\Repositories\Implementations\KucanstvoRepository.cs" />
+    <Compile Include="DAL\Repositories\Implementations\ValutaRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IAnketaRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IKucanstvoRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IGenericRepository.cs" />
+    <Compile Include="DAL\Repositories\Interfaces\IValutaRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

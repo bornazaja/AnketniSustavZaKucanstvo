@@ -1,26 +1,26 @@
 ﻿var app = (function () {
-    var htmlElement = {
-        id: {
-            iznosHraneZaProsliMjesec: '#IznosHraneZaProsliMjesec',
-            iznosRacunaZaProsliMjesec: '#IznosRacunaZaProsliMjesec',
-            iznosZabaveZaProsliMjesec: '#IznosZabaveZaProsliMjesec',
-            iznosOstalihIzdatakaZaProsliMjesec: '#IznosOstalihIzdatakaZaProsliMjesec',
-            kucanstvoID: '#KucanstvoID',
-        },
+    var obrazacHolder = {
+        kucanstvoID: '#KucanstvoID',
+        iznosHraneZaProsliMjesec: '#IznosHraneZaProsliMjesec',
+        iznosRacunaZaProsliMjesec: '#IznosRacunaZaProsliMjesec',
+        iznosZabaveZaProsliMjesec: '#IznosZabaveZaProsliMjesec',
+        iznosOstalihIzdatakaZaProsliMjesec: '#IznosOstalihIzdatakaZaProsliMjesec',
+        valutaID: '#ValutaID'
     };
 
     var localStorageAnkete = {
         key: 'anketaMemory',
         push: function () {
-            var cur = JSON.parse(localStorage.getItem(app.localStorageAnkete.key)) || [];
-            cur.push({
-                IznosHraneZaProsliMjesec: $(app.htmlElement.id.iznosHraneZaProsliMjesec).val(),
-                IznosRacunaZaProsliMjesec: $(app.htmlElement.id.iznosRacunaZaProsliMjesec).val(),
-                IznosZabaveZaProsliMjesec: $(app.htmlElement.id.iznosZabaveZaProsliMjesec).val(),
-                IznosOstalihIzdatakaZaProsliMjesec: $(app.htmlElement.id.iznosOstalihIzdatakaZaProsliMjesec).val(),
-                KucanstvoID: $(app.htmlElement.id.kucanstvoID).val()
+            var anketa = JSON.parse(localStorage.getItem(app.localStorageAnkete.key)) || [];
+            anketa.push({
+                KucanstvoID: $(app.obrazacHolder.kucanstvoID).val(),
+                IznosHraneZaProsliMjesec: $(app.obrazacHolder.iznosHraneZaProsliMjesec).val(),
+                IznosRacunaZaProsliMjesec: $(app.obrazacHolder.iznosRacunaZaProsliMjesec).val(),
+                IznosZabaveZaProsliMjesec: $(app.obrazacHolder.iznosZabaveZaProsliMjesec).val(),
+                IznosOstalihIzdatakaZaProsliMjesec: $(app.obrazacHolder.iznosOstalihIzdatakaZaProsliMjesec).val(),
+                ValutaID: $(app.obrazacHolder.valutaID).val()
             });
-            localStorage.setItem(app.localStorageAnkete.key, JSON.stringify(cur));
+            localStorage.setItem(app.localStorageAnkete.key, JSON.stringify(anketa));
         },
         get: function () {
             return JSON.parse(localStorage.getItem(app.localStorageAnkete.key));
@@ -33,28 +33,26 @@
     function saveAnketeInMemory() {
         var array = app.localStorageAnkete.get();
         if (app.isArrayNotNullOrEmpty(array) && app.checkInternetConnection()) {
-            app.sendAnketeByAjax(array);
-            app.localStorageAnkete.remove();
+            app.sendAnketeByAjax(array)
+                .done(function () {
+                    app.localStorageAnkete.remove();
+                    bootbox.alert("Ankete iz lokalne memorije su uspješno spremljene u bazu.");
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    bootbox.alert("Ankete nisu uspješno spremljene iz lokalne memorije u bazu.");
+                });
         }
     }
 
     function sendAnketeByAjax(ankete) {
         ankete = JSON.stringify({ 'ankete': ankete });
 
-        $.ajax({
+        return $.ajax({
             contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
+            dataType: 'text',
             type: 'POST',
             url: '/Ajax/SaveAnkete',
-            data: ankete,
-            statusCode: {
-                200: function () {
-                    bootbox.alert("Podaci su uspješno spremljeni");
-                },
-                400: function () {
-                    bootbox.alert("Podaci nisu uspješno spremljeni");
-                }
-            }
+            data: ankete
         });
     }
 
@@ -85,14 +83,16 @@
         }
     }
 
-    function getJson(url, callback) {
+    function getJson(url, callback, errorMeesage) {
         $.getJSON(url, function (data) {
             callback(data);
+        }).fail(function () {
+            bootbox.alert(errorMeesage);
         });
     }
 
     return {
-        htmlElement: htmlElement,
+        obrazacHolder: obrazacHolder,
         localStorageAnkete: localStorageAnkete,
         saveAnketeInMemory: saveAnketeInMemory,
         sendAnketeByAjax: sendAnketeByAjax,
@@ -105,14 +105,15 @@
 
 $(window).on('load', function () {
     app.registerServiceWorker();
+    Object.freeze(app.obrazacHolder);
     app.saveAnketeInMemory();
 });
 
 $(window).on('online', function () {
-    bootbox.alert("Aplikacija je online");
+    bootbox.alert("Aplikacija je online.");
     app.saveAnketeInMemory();
 });
 
 $(window).on('offline', function () {
-    bootbox.alert("Aplikacija je offline");
+    bootbox.alert("Aplikacija je offline.");
 });

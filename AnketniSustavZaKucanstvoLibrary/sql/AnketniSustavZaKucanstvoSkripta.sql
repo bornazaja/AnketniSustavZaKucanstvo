@@ -34,14 +34,23 @@ VlasnikKucanstvaID INT CONSTRAINT FK_Kucanstvo_IDVlasnikKucanstva FOREIGN KEY RE
 
 GO
 
+CREATE TABLE Valuta
+(
+IDValuta INT CONSTRAINT PK_IDValuta PRIMARY KEY IDENTITY,
+Naziv NVARCHAR(3) NOT NULL
+)
+
+GO
+
 CREATE TABLE Anketa
 (
-IDAnketa INT CONSTRAINT PK_IDAnketaKucanstvo PRIMARY KEY IDENTITY,
+IDAnketa INT CONSTRAINT PK_IDAnketa PRIMARY KEY IDENTITY,
+KucanstvoID INT CONSTRAINT FK_Anketa_IDKucanstvo FOREIGN KEY REFERENCES Kucanstvo(IDKucanstvo) NOT NULL,
 IznosHraneZaProsliMjesec MONEY NOT NULL,
 IznosRacunaZaProsliMjesec MONEY NOT NULL,
 IznosZabaveZaProsliMjesec MONEY NOT NULL,
 IznosOstalihIzdatakaZaProsliMjesec MONEY NOT NULL,
-KucanstvoID INT CONSTRAINT FK_Anketa_IDKucanstvo FOREIGN KEY REFERENCES Kucanstvo(IDKucanstvo) NOT NULL
+ValutaID INT CONSTRAINT FK_Anketa_IDValuta FOREIGN KEY REFERENCES Valuta(IDValuta) NOT NULL
 )
 
 GO
@@ -89,5 +98,8 @@ INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('7352625251', 14)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('7463625251', 15)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('3625262512', 16)
 
-INSERT INTO Anketa(IznosHraneZaProsliMjesec, IznosRacunaZaProsliMjesec, IznosZabaveZaProsliMjesec, IznosOstalihIzdatakaZaProsliMjesec, KucanstvoID) VALUES(1000, 1500, 200, 500, 1)
-INSERT INTO Anketa(IznosHraneZaProsliMjesec, IznosRacunaZaProsliMjesec, IznosZabaveZaProsliMjesec, IznosOstalihIzdatakaZaProsliMjesec, KucanstvoID) VALUES(500, 1000, 300, 200, 2)
+INSERT INTO Valuta(Naziv) VALUES('HRK')
+INSERT INTO Valuta(Naziv) VALUES('EUR')
+
+INSERT INTO Anketa(KucanstvoID, IznosHraneZaProsliMjesec, IznosRacunaZaProsliMjesec, IznosZabaveZaProsliMjesec, IznosOstalihIzdatakaZaProsliMjesec, ValutaID) VALUES(1, 1000, 1500, 200, 500, 1)
+INSERT INTO Anketa(KucanstvoID, IznosHraneZaProsliMjesec, IznosRacunaZaProsliMjesec, IznosZabaveZaProsliMjesec, IznosOstalihIzdatakaZaProsliMjesec, ValutaID) VALUES(2, 500, 1000, 300, 200, 1)

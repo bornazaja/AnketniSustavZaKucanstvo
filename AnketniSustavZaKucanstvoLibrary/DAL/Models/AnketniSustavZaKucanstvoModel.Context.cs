@@ -28,6 +28,7 @@ namespace AnketniSustavZaKucanstvoLibrary.DAL.Models
         public virtual DbSet<Anketa> Anketas { get; set; }
         public virtual DbSet<Grad> Grads { get; set; }
         public virtual DbSet<Kucanstvo> Kucanstvoes { get; set; }
+        public virtual DbSet<Valuta> Valutas { get; set; }
         public virtual DbSet<VlasnikKucanstva> VlasnikKucanstvas { get; set; }
     }
 }

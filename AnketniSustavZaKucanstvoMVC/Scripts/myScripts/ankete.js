@@ -22,9 +22,9 @@ $(window).on('load', function () {
     loadAnkete();
 });
 
-$("#btnOsvjeziSvePodatke").on('click', function () {
+$('#btnOsvjeziSvePodatke').on('click', function () {
     loadAnkete();
-    bootbox.alert("Podaci su osvježeni");
+    bootbox.alert("Podaci su osvježeni.");
 });
 
 function loadAnkete() {
@@ -32,7 +32,7 @@ function loadAnkete() {
         app.getJson('/Json/GetAnkete', function (data) {
             fillAnketeFromDbToTable(data);
             localStorage.ankete = JSON.stringify(data);
-        });
+        }, 'Desila se greška prilikom dohvaćanja anketa.');
     } else {
         fillAnketeFromDbToTable(JSON.parse(localStorage.ankete));
     }
@@ -56,7 +56,8 @@ function fillAnketeFromDbToTable(data) {
                 'Iznos hrane za prošli mjesec',
                 'Iznos računa za prošli mjesec',
                 'Iznos zabave za prošli mjesec',
-                'Iznos ostalih izdataka za prošli mjesec'
+                'Iznos ostalih izdataka za prošli mjesec',
+                'Valuta'
             ];
 
         tableHelper.createTable(attributes, data, placeholder);
@@ -74,11 +75,12 @@ function fillAnketeFromMemoryToTable() {
 
         var attributes =
             [
-                'Iznos hrane za prosli mjesec',
+                'Kućanstvo ID',
+                'Iznos hrane za prošli mjesec',
                 'Iznos računa za prošli mjesec',
                 'Iznos zabave za prošli mjesec',
                 'Iznos ostalih izdataka za prošli mjesec',
-                'KucanstvoID'
+                'Valuta ID'
             ];
 
         tableHelper.createTable(attributes, data, placeholder);

@@ -1,14 +1,14 @@
-﻿using AnketniSustavZaKucanstvoLibrary.DAL.Interfaces;
-using AnketniSustavZaKucanstvoLibrary.DAL.Models;
+﻿using AnketniSustavZaKucanstvoLibrary.DAL.Models;
+using AnketniSustavZaKucanstvoLibrary.DAL.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace AnketniSustavZaKucanstvoLibrary.DAL.Implementations
+namespace AnketniSustavZaKucanstvoLibrary.DAL.Repositories.Implementations
 {
     public class KucanstvoRepository : GenericRepository<Kucanstvo>, IKucanstvoRepository
     {
-        public IEnumerable<Kucanstvo> GetKucanstvaWithVlasnikKucanstva()
+        public IEnumerable<Kucanstvo> GetKucanstvaWithVlasniciKucanstva()
         {
             using (var db = new AnketniSustavZaKucanstvoEntities())
             {

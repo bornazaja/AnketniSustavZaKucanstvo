@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AnketniSustavZaKucanstvoLibrary.DAL.Interfaces
+namespace AnketniSustavZaKucanstvoLibrary.DAL.Repositories.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {

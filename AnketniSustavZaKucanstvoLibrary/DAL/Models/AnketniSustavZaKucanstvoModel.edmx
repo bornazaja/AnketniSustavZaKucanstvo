@@ -10,11 +10,12 @@
             <PropertyRef Name="IDAnketa" />
           </Key>
           <Property Name="IDAnketa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KucanstvoID" Type="int" Nullable="false" />
           <Property Name="IznosHraneZaProsliMjesec" Type="money" Nullable="false" />
           <Property Name="IznosRacunaZaProsliMjesec" Type="money" Nullable="false" />
           <Property Name="IznosZabaveZaProsliMjesec" Type="money" Nullable="false" />
           <Property Name="IznosOstalihIzdatakaZaProsliMjesec" Type="money" Nullable="false" />
-          <Property Name="KucanstvoID" Type="int" Nullable="false" />
+          <Property Name="ValutaID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Grad">
           <Key>
@@ -30,6 +31,13 @@
           <Property Name="IDKucanstvo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sifra" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="VlasnikKucanstvaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Valuta">
+          <Key>
+            <PropertyRef Name="IDValuta" />
+          </Key>
+          <Property Name="IDValuta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="3" Nullable="false" />
         </EntityType>
         <EntityType Name="VlasnikKucanstva">
           <Key>
@@ -51,6 +59,18 @@
             </Principal>
             <Dependent Role="Anketa">
               <PropertyRef Name="KucanstvoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Anketa_IDValuta">
+          <End Role="Valuta" Type="Self.Valuta" Multiplicity="1" />
+          <End Role="Anketa" Type="Self.Anketa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Valuta">
+              <PropertyRef Name="IDValuta" />
+            </Principal>
+            <Dependent Role="Anketa">
+              <PropertyRef Name="ValutaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -82,9 +102,14 @@
           <EntitySet Name="Anketa" EntityType="Self.Anketa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Grad" EntityType="Self.Grad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kucanstvo" EntityType="Self.Kucanstvo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Valuta" EntityType="Self.Valuta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VlasnikKucanstva" EntityType="Self.VlasnikKucanstva" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Anketa_IDKucanstvo" Association="Self.FK_Anketa_IDKucanstvo">
             <End Role="Kucanstvo" EntitySet="Kucanstvo" />
+            <End Role="Anketa" EntitySet="Anketa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Anketa_IDValuta" Association="Self.FK_Anketa_IDValuta">
+            <End Role="Valuta" EntitySet="Valuta" />
             <End Role="Anketa" EntitySet="Anketa" />
           </AssociationSet>
           <AssociationSet Name="FK_Kucanstvo_IDVlasnikKucanstva" Association="Self.FK_Kucanstvo_IDVlasnikKucanstva">
@@ -106,12 +131,14 @@
             <PropertyRef Name="IDAnketa" />
           </Key>
           <Property Name="IDAnketa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KucanstvoID" Type="Int32" Nullable="false" />
           <Property Name="IznosHraneZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="IznosRacunaZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="IznosZabaveZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="IznosOstalihIzdatakaZaProsliMjesec" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="KucanstvoID" Type="Int32" Nullable="false" />
+          <Property Name="ValutaID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Kucanstvo" Relationship="Self.FK_Anketa_IDKucanstvo" FromRole="Anketa" ToRole="Kucanstvo" />
+          <NavigationProperty Name="Valuta" Relationship="Self.FK_Anketa_IDValuta" FromRole="Anketa" ToRole="Valuta" />
         </EntityType>
         <EntityType Name="Grad">
           <Key>
@@ -130,6 +157,14 @@
           <Property Name="VlasnikKucanstvaID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Anketas" Relationship="Self.FK_Anketa_IDKucanstvo" FromRole="Kucanstvo" ToRole="Anketa" />
           <NavigationProperty Name="VlasnikKucanstva" Relationship="Self.FK_Kucanstvo_IDVlasnikKucanstva" FromRole="Kucanstvo" ToRole="VlasnikKucanstva" />
+        </EntityType>
+        <EntityType Name="Valuta">
+          <Key>
+            <PropertyRef Name="IDValuta" />
+          </Key>
+          <Property Name="IDValuta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Anketas" Relationship="Self.FK_Anketa_IDValuta" FromRole="Valuta" ToRole="Anketa" />
         </EntityType>
         <EntityType Name="VlasnikKucanstva">
           <Key>
@@ -153,6 +188,18 @@
             </Principal>
             <Dependent Role="Anketa">
               <PropertyRef Name="KucanstvoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Anketa_IDValuta">
+          <End Role="Valuta" Type="Self.Valuta" Multiplicity="1" />
+          <End Role="Anketa" Type="Self.Anketa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Valuta">
+              <PropertyRef Name="IDValuta" />
+            </Principal>
+            <Dependent Role="Anketa">
+              <PropertyRef Name="ValutaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -184,9 +231,14 @@
           <EntitySet Name="Anketas" EntityType="Self.Anketa" />
           <EntitySet Name="Grads" EntityType="Self.Grad" />
           <EntitySet Name="Kucanstvoes" EntityType="Self.Kucanstvo" />
+          <EntitySet Name="Valutas" EntityType="Self.Valuta" />
           <EntitySet Name="VlasnikKucanstvas" EntityType="Self.VlasnikKucanstva" />
           <AssociationSet Name="FK_Anketa_IDKucanstvo" Association="Self.FK_Anketa_IDKucanstvo">
             <End Role="Kucanstvo" EntitySet="Kucanstvoes" />
+            <End Role="Anketa" EntitySet="Anketas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Anketa_IDValuta" Association="Self.FK_Anketa_IDValuta">
+            <End Role="Valuta" EntitySet="Valutas" />
             <End Role="Anketa" EntitySet="Anketas" />
           </AssociationSet>
           <AssociationSet Name="FK_VlasnikKucanstva_IDGrad" Association="Self.FK_VlasnikKucanstva_IDGrad">
@@ -208,11 +260,12 @@
             <EntityTypeMapping TypeName="AnketniSustavZaKucanstvoModel.Anketa">
               <MappingFragment StoreEntitySet="Anketa">
                 <ScalarProperty Name="IDAnketa" ColumnName="IDAnketa" />
+                <ScalarProperty Name="KucanstvoID" ColumnName="KucanstvoID" />
                 <ScalarProperty Name="IznosHraneZaProsliMjesec" ColumnName="IznosHraneZaProsliMjesec" />
                 <ScalarProperty Name="IznosRacunaZaProsliMjesec" ColumnName="IznosRacunaZaProsliMjesec" />
                 <ScalarProperty Name="IznosZabaveZaProsliMjesec" ColumnName="IznosZabaveZaProsliMjesec" />
                 <ScalarProperty Name="IznosOstalihIzdatakaZaProsliMjesec" ColumnName="IznosOstalihIzdatakaZaProsliMjesec" />
-                <ScalarProperty Name="KucanstvoID" ColumnName="KucanstvoID" />
+                <ScalarProperty Name="ValutaID" ColumnName="ValutaID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -230,6 +283,14 @@
                 <ScalarProperty Name="IDKucanstvo" ColumnName="IDKucanstvo" />
                 <ScalarProperty Name="Sifra" ColumnName="Sifra" />
                 <ScalarProperty Name="VlasnikKucanstvaID" ColumnName="VlasnikKucanstvaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Valutas">
+            <EntityTypeMapping TypeName="AnketniSustavZaKucanstvoModel.Valuta">
+              <MappingFragment StoreEntitySet="Valuta">
+                <ScalarProperty Name="IDValuta" ColumnName="IDValuta" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

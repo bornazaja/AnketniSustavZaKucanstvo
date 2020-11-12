@@ -1,5 +1,4 @@
-﻿using AnketniSustavZaKucanstvoLibrary.BLL.Services;
-using System;
+﻿using Autofac;
 
 namespace AnketniSustavZaKucanstvoConsole
 {
@@ -7,17 +6,12 @@ namespace AnketniSustavZaKucanstvoConsole
     {
         static void Main(string[] args)
         {
-            try
+            IContainer container = IoCConfig.GetContainer();
+
+            using (var scope = container.BeginLifetimeScope())
             {
-                DatabaseService databaseService = new DatabaseService();
-                foreach (var item in databaseService.AnketaRepository.GetAnketeWithKucanstvo())
-                {
-                    Console.WriteLine($"{item.IDAnketa} {item.Kucanstvo.Sifra} {item.Kucanstvo.VlasnikKucanstva.Ime} {item.Kucanstvo.VlasnikKucanstva.Prezime} {item.Kucanstvo.VlasnikKucanstva.Ulica} {item.Kucanstvo.VlasnikKucanstva.KucniBroj} {item.Kucanstvo.VlasnikKucanstva.Grad.Naziv} {item.IznosHraneZaProsliMjesec} {item.IznosRacunaZaProsliMjesec} {item.IznosZabaveZaProsliMjesec} {item.IznosOstalihIzdatakaZaProsliMjesec}");
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Desila se greška.");
+                IApplication application = scope.Resolve<IApplication>();
+                application.Run();
             }
         }
     }

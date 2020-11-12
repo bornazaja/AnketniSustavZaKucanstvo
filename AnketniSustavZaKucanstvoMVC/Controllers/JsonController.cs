@@ -1,4 +1,4 @@
-﻿using AnketniSustavZaKucanstvoLibrary.BLL.Services;
+﻿using AnketniSustavZaKucanstvoLibrary.BLL.Services.Interfaces;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -6,12 +6,21 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
 {
     public class JsonController : Controller
     {
-        private static DatabaseService databaseService = new DatabaseService();
+        private IKucanstvoService _kucanstvoService;
+        private IAnketaService _anketaService;
+        private IValutaService _valutaService;
+
+        public JsonController(IKucanstvoService kucanstvoService, IAnketaService anketaService, IValutaService valutaService)
+        {
+            _kucanstvoService = kucanstvoService;
+            _anketaService = anketaService;
+            _valutaService = valutaService;
+        }
 
         // GET: Json
         public ActionResult GetKucanstva()
         {
-            var list = databaseService.KucanstvoRepository.GetKucanstvaWithVlasnikKucanstva().Select(k => new
+            var kucanstva = _kucanstvoService.GetKucanstvaWithVlasniciKucanstva().Select(k => new
             {
                 IDKucanstvo = k.IDKucanstvo,
                 Sifra = k.Sifra,
@@ -21,12 +30,12 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
                 KucniBroj = k.VlasnikKucanstva.KucniBroj,
                 Grad = k.VlasnikKucanstva.Grad.Naziv
             }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(kucanstva, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetAnkete()
         {
-            var list = databaseService.AnketaRepository.GetAnketeWithKucanstvo().Select(a => new
+            var ankete = _anketaService.GetAnketeWithKucanstvaAndValute().Select(a => new
             {
                 IDAnketa = a.IDAnketa,
                 KucanstvoID = a.Kucanstvo.IDKucanstvo,
@@ -40,8 +49,19 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
                 IznosRacunaZaProsliMjesec = a.IznosRacunaZaProsliMjesec,
                 IznosZabaveZaProsliMjesec = a.IznosZabaveZaProsliMjesec,
                 IznosOstalihIzdatakaZaProsliMjesec = a.IznosOstalihIzdatakaZaProsliMjesec,
+                Valuta = a.Valuta.Naziv
             }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(ankete, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetValute()
+        {
+            var valute = _valutaService.GetAll().Select(v => new
+            {
+                IDValuta = v.IDValuta,
+                Naziv = v.Naziv
+            }).ToList();
+            return Json(valute, JsonRequestBehavior.AllowGet);
         }
     }
 }

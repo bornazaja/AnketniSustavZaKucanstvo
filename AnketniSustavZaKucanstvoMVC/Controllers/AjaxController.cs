@@ -1,5 +1,5 @@
-﻿using AnketniSustavZaKucanstvoLibrary.BLL.Services;
-using AnketniSustavZaKucanstvoLibrary.DAL.Models;
+﻿using AnketniSustavZaKucanstvoLibrary.BLL.DTO;
+using AnketniSustavZaKucanstvoLibrary.BLL.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -9,16 +9,21 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
 {
     public class AjaxController : Controller
     {
-        private static DatabaseService databaseService = new DatabaseService();
+        private IAnketaService _anketaService;
+
+        public AjaxController(IAnketaService anketaService)
+        {
+            _anketaService = anketaService;
+        }
 
         // GET: Ajax
-        public ActionResult SaveAnkete(List<Anketa> ankete)
+        public ActionResult SaveAnkete(List<AnketaDto> ankete)
         {
             try
             {
                 foreach (var anketa in ankete)
                 {
-                    databaseService.AnketaRepository.Add(anketa);
+                    _anketaService.Add(anketa);
                 }
 
                 return new HttpStatusCodeResult(HttpStatusCode.OK);

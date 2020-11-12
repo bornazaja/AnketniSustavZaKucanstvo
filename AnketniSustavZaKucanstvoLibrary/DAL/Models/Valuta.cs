@@ -12,17 +12,18 @@ namespace AnketniSustavZaKucanstvoLibrary.DAL.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Anketa
+    public partial class Valuta
     {
-        public int IDAnketa { get; set; }
-        public int KucanstvoID { get; set; }
-        public decimal IznosHraneZaProsliMjesec { get; set; }
-        public decimal IznosRacunaZaProsliMjesec { get; set; }
-        public decimal IznosZabaveZaProsliMjesec { get; set; }
-        public decimal IznosOstalihIzdatakaZaProsliMjesec { get; set; }
-        public int ValutaID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Valuta()
+        {
+            this.Anketas = new HashSet<Anketa>();
+        }
     
-        public virtual Kucanstvo Kucanstvo { get; set; }
-        public virtual Valuta Valuta { get; set; }
+        public int IDValuta { get; set; }
+        public string Naziv { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Anketa> Anketas { get; set; }
     }
 }

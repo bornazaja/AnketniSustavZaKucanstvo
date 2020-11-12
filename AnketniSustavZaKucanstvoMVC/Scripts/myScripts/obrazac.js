@@ -1,10 +1,10 @@
 ﻿$(window).on('load', function () {
     loadKucanstva();
-    loadFormData();
+    loadValute();
 });
 
-$(window).on('beforeunload', function () {
-    rememberFormData();
+$(window).bind('beforeunload', function () {
+    return '';
 });
 
 $('[type=submit]').click(function (evt) {
@@ -19,69 +19,53 @@ $('[type=submit]').click(function (evt) {
     });
 });
 
-function loadFormData() {
-    $(app.htmlElement.id.kucanstvoID).val(sessionStorage.kucanstvoID);
-    loadField(sessionStorage.iznosHraneZaProsliMjesec, app.htmlElement.id.iznosHraneZaProsliMjesec);
-    loadField(sessionStorage.iznosRacunaZaProsliMjesec, app.htmlElement.id.iznosRacunaZaProsliMjesec);
-    loadField(sessionStorage.iznosZabaveZaProsliMjesec, app.htmlElement.id.iznosZabaveZaProsliMjesec);
-    loadField(sessionStorage.iznosOstalihIzdatakaZaProsliMjesec, app.htmlElement.id.iznosOstalihIzdatakaZaProsliMjesec);
-};
-
-function loadField(key, field) {
-    var value = key;
-    if (value !== "undefined") {
-        $(field).val(value);
-    }
-};
-
-function rememberFormData() {
-    sessionStorage.iznosHraneZaProsliMjesec = $(app.htmlElement.id.iznosHraneZaProsliMjesec).val();
-    sessionStorage.iznosRacunaZaProsliMjesec = $(app.htmlElement.id.iznosRacunaZaProsliMjesec).val();
-    sessionStorage.iznosZabaveZaProsliMjesec = $(app.htmlElement.id.iznosZabaveZaProsliMjesec).val();
-    sessionStorage.iznosOstalihIzdatakaZaProsliMjesec = $(app.htmlElement.id.iznosOstalihIzdatakaZaProsliMjesec).val();
-    sessionStorage.kucanstvoID = $(app.htmlElement.id.kucanstvoID).val();
-};
-
-
 function saveAnkete() {
     if (app.checkInternetConnection()) {
         var ankete = [{
-            IznosHraneZaProsliMjesec: $(app.htmlElement.id.iznosHraneZaProsliMjesec).val(),
-            IznosRacunaZaProsliMjesec: $(app.htmlElement.id.iznosRacunaZaProsliMjesec).val(),
-            IznosZabaveZaProsliMjesec: $(app.htmlElement.id.iznosZabaveZaProsliMjesec).val(),
-            IznosOstalihIzdatakaZaProsliMjesec: $(app.htmlElement.id.iznosOstalihIzdatakaZaProsliMjesec).val(),
-            KucanstvoID: $(app.htmlElement.id.kucanstvoID).val()
+            KucanstvoID: $(app.obrazacHolder.kucanstvoID).val(),
+            IznosHraneZaProsliMjesec: $(app.obrazacHolder.iznosHraneZaProsliMjesec).val(),
+            IznosRacunaZaProsliMjesec: $(app.obrazacHolder.iznosRacunaZaProsliMjesec).val(),
+            IznosZabaveZaProsliMjesec: $(app.obrazacHolder.iznosZabaveZaProsliMjesec).val(),
+            IznosOstalihIzdatakaZaProsliMjesec: $(app.obrazacHolder.iznosOstalihIzdatakaZaProsliMjesec).val(),
+            ValutaID: $(app.obrazacHolder.valutaID).val()
         }];
-        app.sendAnketeByAjax(ankete);
+
+        app.sendAnketeByAjax(ankete)
+            .done(function () {
+                bootbox.alert("Anketa je uspješno spremljena u bazu.");
+            })
+            .fail(function () {
+                bootbox.alert("Desila se greška prilikom spremanja ankete u bazu.");
+            });
     } else {
         app.localStorageAnkete.push();
-        bootbox.alert("Podaci su spremljeni inetrno u aplikaciju");
+        bootbox.alert("Anketa su uspješno spremljena u lokalnu memoriju.");
     }
-    resetForm();
 };
 
 function resetForm() {
-    $(app.htmlElement.id.iznosHraneZaProsliMjesec).val("");
-    $(app.htmlElement.id.iznosRacunaZaProsliMjesec).val("");
-    $(app.htmlElement.id.iznosZabaveZaProsliMjesec).val("");
-    $(app.htmlElement.id.iznosOstalihIzdatakaZaProsliMjesec).val("");
-    $(app.htmlElement.id.kucanstvoID).val("");
+    $(app.obrazacHolder.kucanstvoID).val("");
+    $(app.obrazacHolder.iznosHraneZaProsliMjesec).val("");
+    $(app.obrazacHolder.iznosRacunaZaProsliMjesec).val("");
+    $(app.obrazacHolder.iznosZabaveZaProsliMjesec).val("");
+    $(app.obrazacHolder.iznosOstalihIzdatakaZaProsliMjesec).val("");
+    $(app.obrazacHolder.valutaID).val("");
 }
 
 function loadKucanstva() {
     if (app.checkInternetConnection()) {
-        app.getJson('/Json/GetKucanstva', function (data) {  
+        app.getJson('/Json/GetKucanstva', function (data) {
             fillKucanstvaToDdl(data);
             localStorage.kucanstva = JSON.stringify(data);
-        });
+        }, 'Desila se greška prilikom dohvaćanja kućanstava.');
     } else {
         fillKucanstvaToDdl(JSON.parse(localStorage.kucanstva));
     }
 };
 
 function fillKucanstvaToDdl(result) {
-    var ddl = $(app.htmlElement.id.kucanstvoID);
-    ddl.append('<option value="">---odaberi kućanstvo---</option>');
+    var ddl = $(app.obrazacHolder.kucanstvoID);
+    ddl.append('<option value="">---odaberite kućanstvo---</option>');
 
     result.forEach(function (k) {
         ddl.append($('<option/>', {
@@ -95,3 +79,23 @@ function fillKucanstvaToDdl(result) {
         }));
     });
 };
+
+function loadValute() {
+    if (app.checkInternetConnection()) {
+        app.getJson('/Json/GetValute', function (data) {
+            fillValuteToDdl(data);
+            localStorage.valute = JSON.stringify(data);
+        }, 'Desila se greška prilikom dohvaćanja valuta.');
+    } else {
+        fillValuteToDdl(JSON.parse(localStorage.valute));
+    }
+}
+
+function fillValuteToDdl(result) {
+    var ddl = $(app.obrazacHolder.valutaID);
+    ddl.append('<option value="">---odaberite valutu---</option>');
+
+    result.forEach(function (v) {
+        ddl.append($('<option/>', { value: v.IDValuta, text: v.Naziv }));
+    });
+}
