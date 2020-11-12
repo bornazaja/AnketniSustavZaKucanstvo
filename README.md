@@ -3,6 +3,7 @@ Ovo je aplikacija koja se bavi anketiranjem kućanstava, odnosno prikupljanjem p
 
 Tehnologije
 * C#
+* Entity Framework
 * ASP.NET MVC
 * Bootstrap
 * MS SQL Server
