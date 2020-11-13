@@ -11,6 +11,9 @@
     <title>Anketni sustav za kućanstvo</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/datatables.min.css" rel="stylesheet" />
+    <link href="~/Content/select2.min.css" rel="stylesheet"/>
+    <link href="~/Content/select2-bootstrap4.min.css" rel="stylesheet"/>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <link rel="manifest" href="~/manifest.json" />
 </head>
@@ -21,10 +24,87 @@
         </div>
     </header>
 
-    <br/>
+    <br />
 
-    <div>
-        @Html.Partial("_Ankete")
+    <div class="container">
+
+        <div id="myModal" class="modal hide fade" data-backdrop="static" data-keyboard="false" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Obrazac za anketu</h5>
+                        <button type="button" class="close pull-lg-right" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Partial("_Obrazac")
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="Dodaj anketu" />
+
+        @*<input type="button" value="Osvježi sve podatke" class="btn btn-primary" id="btnOsvjeziSvePodatke" />*@
+
+        <br />
+        <br />
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Ankete iz baze</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="anketeFromDB" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID Anketa</th>
+                                <th>Kućanstvo ID</th>
+                                <th>Šifra kućanstva</th>
+                                <th>Ime vlasnika</th>
+                                <th>Prezime vlasnika</th>
+                                <th>Ulica</th>
+                                <th>Kućni broj</th>
+                                <th>Grad</th>
+                                <th>Iznos hrane za prošli mjesec</th>
+                                <th>Iznos računa prošli mjesec</th>
+                                <th>Iznos zabave za prošli mjesec</th>
+                                <th>Iznos ostalih izdataka za prošli mjesec</th>
+                                <th>Valuta</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Privremene ankete iz lokalne pohrane</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="temporaryAnketeFromLocalStorage" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Kućanstvo ID</th>
+                                <th>Iznos hrane za prošli mjesec</th>
+                                <th>Iznos računa prošli mjesec</th>
+                                <th>Iznos zabave za prošli mjesec</th>
+                                <th>Iznos ostalih izdataka za prošli mjesec</th>
+                                <th>Valuta ID</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
     </div>
 
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
@@ -32,10 +112,12 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
     <script src="~/Scripts/bootbox.min.js"></script>
-    <script src="~/Scripts/myScripts/app.js"></script>
-    <script src="~/Scripts/myScripts/ankete.js"></script>
-    <script src="~/Scripts/myScripts/obrazac.js"></script>
+    <script src="~/Scripts/Custom/app.js"></script>
+    <script src="~/Scripts/Custom/index.js"></script>
+    <script src="~/Scripts/Custom/obrazac.js"></script>
     <link href="~/Content/MojCss.css" rel="stylesheet" />
 </body>
 </html>

@@ -94,7 +94,6 @@ INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('8372626242', 11)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('3836262828', 12)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('3937262526', 13)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('3837262525', 14)
-INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('7352625251', 14)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('7463625251', 15)
 INSERT INTO Kucanstvo(Sifra, VlasnikKucanstvaID) VALUES('3625262512', 16)
 
