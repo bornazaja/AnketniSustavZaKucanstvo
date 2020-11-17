@@ -64,7 +64,7 @@ self.addEventListener('fetch', function (e) {
     e.respondWith(promise);
 });
 
-async function fromNetwork(e) {
+function fromNetwork(e) {
     console.log('[ServiceWorker] Fetching from network');
 
     return caches.open(CACHE_NAME).then(function (cache) {
