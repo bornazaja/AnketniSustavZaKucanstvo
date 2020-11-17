@@ -1,6 +1,30 @@
 ﻿{
-  "name": "AnketniSustavZaKucanstvo",
-  "short_name": "AnketniSustav",
+  "name": "Anketni Sustav Za Kućanstvo",
+  "short_name": "ASZK",
   "start_url": "/Home/Index",
-  "display": "standalone"
+  "display": "standalone",
+  "background_color": "#00b0ec",
+  "theme_color": "#00b0ec",
+  "icons": [
+    {
+      "src": "/Content/Images/Icons/app-icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/Content/Images/Icons/app-icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/Content/Images/Icons/app-icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/Content/Images/Icons/app-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

@@ -10,32 +10,40 @@ $('[type=submit]').click(function (evt) {
         if (odgovor && form.valid()) {
             saveAnkete();
             $('#myModal').modal('hide');
-            resetForm();
         }
     });
 });
 
 function saveAnkete() {
-    if (app.checkInternetConnection()) {
-        var ankete = JSON.stringify({ 'ankete': [app.anketaHelper.anketaToObj()] });
-
-        app.sendDataByAjax('/Home/SaveAnkete', ankete)
-            .done(function () {
-                app.anketaHelper.fetchAnketeFromDB();
-                bootbox.alert('Anketa je uspješno spremljena u bazu.');
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-                bootbox.alert('Desila se greška prilikom spremanja ankete u bazu.');
-            });
-    } else {
-        app.anketaHelper.temporaryAnketeByLocalStorage.push();
-        app.anketaHelper.fetchTemporaryAnketeFromLocalStorage();
-        bootbox.alert('Anketa je uspješno spremljena lokalno.');
-    }
+    app.testInternetAndServerConnection(hasConnection => {
+        if (hasConnection) {
+            saveAnketeInDB();
+        } else {
+            saveAnketeInLocalStorage();
+        }
+    });
 };
+
+function saveAnketeInDB() {
+    var ankete = JSON.stringify({ 'ankete': [app.anketaHelper.anketaToObj()] });
+
+    app.sendDataByAjax('/Home/AddAnkete', ankete)
+        .done(() => bootbox.alert('Anketa je uspješno spremljena u bazu.', () => {
+            app.anketaHelper.fetchAnkete();
+            resetForm();
+        }))
+        .fail((jqXHR, textStatus, errorThrown) => {
+            app.logRequestFail(textStatus, errorThrown);
+            bootbox.alert('Desila se greška prilikom spremanja ankete u bazu.');
+            saveAnketeInLocalStorage();
+        });
+}
+
+function saveAnketeInLocalStorage() {
+    app.anketaHelper.temporaryAnketeByLocalStorage.push();
+    app.anketaHelper.fetchTemporaryAnketeFromLocalStorage();
+    bootbox.alert('Anketa je uspješno spremljena lokalno.', () => resetForm());
+}
 
 function resetForm() {
     $(app.anketaHelper.obrazacHolder.kucanstvoID).val('').trigger('change');
@@ -47,23 +55,43 @@ function resetForm() {
 }
 
 function fetchKucanstva() {
-    if (app.checkInternetConnection()) {
-        app.getJson('/Home/GetKucanstva', function (data) {
-            localStorage.kucanstva = JSON.stringify(data);
-            app.bindSelect2(app.anketaHelper.obrazacHolder.kucanstvoID, data);
-        }, 'Desila se greška prilikom dohvaćanja kućanstava.');
-    } else {
-        app.bindSelect2(app.anketaHelper.obrazacHolder.kucanstvoID, JSON.parse(localStorage.kucanstva));
-    }
-};
+    app.testInternetAndServerConnection(hasConnection => {
+        if (hasConnection) {
+            fetchKucanstvaFromDB();
+        } else {
+            fetchKucanstvaFromLocalStorage();
+        }
+    });
+}
+
+function fetchKucanstvaFromDB() {
+    app.getJson('/Home/GetKucanstva', (data) => {
+        localStorage.kucanstva = JSON.stringify(data);
+        app.bindSelect2(app.anketaHelper.obrazacHolder.kucanstvoID, data);
+    }, 'Desila se greška prilikom dohvaćanja kućanstava.');
+}
+
+function fetchKucanstvaFromLocalStorage() {
+    app.bindSelect2(app.anketaHelper.obrazacHolder.kucanstvoID, JSON.parse(localStorage.kucanstva));
+}
 
 function fetchValute() {
-    if (app.checkInternetConnection()) {
-        app.getJson('/Home/GetValute', function (data) {
-            localStorage.valute = JSON.stringify(data);
-            app.bindSelect2(app.anketaHelper.obrazacHolder.valutaID, data);
-        }, 'Desila se greška prilikom dohvaćanja valuta.');
-    } else {
-        app.bindSelect2(app.anketaHelper.obrazacHolder.valutaID, JSON.parse(localStorage.valute));
-    }
+    app.testInternetAndServerConnection(hasConnection => {
+        if (hasConnection) {
+            fetchValuteFromDB();
+        } else {
+            fetchValuteFromLocalStorage();
+        }
+    });
+}
+
+function fetchValuteFromDB() {
+    app.getJson('/Home/GetValute', (data) => {
+        localStorage.valute = JSON.stringify(data);
+        app.bindSelect2(app.anketaHelper.obrazacHolder.valutaID, data);
+    }, 'Desila se greška prilikom dohvaćanja valuta.');
+}
+
+function fetchValuteFromLocalStorage() {
+    app.bindSelect2(app.anketaHelper.obrazacHolder.valutaID, JSON.parse(localStorage.valute));
 }

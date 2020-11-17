@@ -7,37 +7,37 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             @Html.Label("Kućanstvo:")
             @Html.DropDownListFor(model => model.KucanstvoID, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", @data_width = "100%" })
             @Html.ValidationMessageFor(model => model.KucanstvoID, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             @Html.Label("Iznos hrane za prošli mjesec:")
             @Html.EditorFor(model => model.IznosHraneZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
             @Html.ValidationMessageFor(model => model.IznosHraneZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             @Html.Label("Iznos računa za prošli mjesec:")
             @Html.EditorFor(model => model.IznosRacunaZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
             @Html.ValidationMessageFor(model => model.IznosRacunaZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             @Html.Label("Iznos zabave za prošli mjesec:")
             @Html.EditorFor(model => model.IznosZabaveZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
             @Html.ValidationMessageFor(model => model.IznosZabaveZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             @Html.Label("Iznos ostalih izdataka za prošli mjesec:")
             @Html.EditorFor(model => model.IznosOstalihIzdatakaZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
             @Html.ValidationMessageFor(model => model.IznosOstalihIzdatakaZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             @Html.Label("Valuta:")
             @Html.DropDownListFor(model => model.ValutaID, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", @data_width = "100%" })
             @Html.ValidationMessageFor(model => model.ValutaID, "", new { @class = "text-danger" })

@@ -1,4 +1,6 @@
 SELECT
+	a.IDAnketa,
+	k.IDKucanstvo,
 	k.Sifra AS SifraKucanstva,
 	vk.Ime + ' ' + vk.Prezime AS ImePrezimeVlasnika,
 	vk.Ulica + ' ' + vk.KucniBroj AS Adresa,

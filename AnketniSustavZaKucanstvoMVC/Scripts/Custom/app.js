@@ -11,9 +11,9 @@
         temporaryAnketeByLocalStorage: {
             key: 'temporaryAnkete',
             push: function () {
-                var anketa = JSON.parse(localStorage.getItem(app.anketaHelper.temporaryAnketeByLocalStorage.key)) || [];
-                anketa.push(app.anketaHelper.anketaToObj());
-                localStorage.setItem(app.anketaHelper.temporaryAnketeByLocalStorage.key, JSON.stringify(anketa));
+                var ankete = JSON.parse(localStorage.getItem(app.anketaHelper.temporaryAnketeByLocalStorage.key)) || [];
+                ankete.push(app.anketaHelper.anketaToObj());
+                localStorage.setItem(app.anketaHelper.temporaryAnketeByLocalStorage.key, JSON.stringify(ankete));
             },
             get: function () {
                 return JSON.parse(localStorage.getItem(app.anketaHelper.temporaryAnketeByLocalStorage.key));
@@ -34,23 +34,25 @@
         },
         saveTemporaryAnketeFromLocalStorageToDB: function () {
             var ankete = app.anketaHelper.temporaryAnketeByLocalStorage.get();
-            if (app.isArrayNotNullOrEmpty(ankete) && app.checkInternetConnection()) {
-                app.sendDataByAjax('/Home/SaveAnkete', JSON.stringify({ 'ankete': ankete }))
-                    .done(function () {
-                        app.anketaHelper.temporaryAnketeByLocalStorage.remove();
-                        app.anketaHelper.fetchAnketeFromDB();
-                        app.anketaHelper.fetchTemporaryAnketeFromLocalStorage();
-                        bootbox.alert('Ankete iz lokalne memorije su uspješno spremljene u bazu.');
-                    })
-                    .fail(function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                        console.log(textStatus);
-                        console.log(errorThrown);
-                        bootbox.alert('Ankete nisu uspješno spremljene iz lokalne memorije u bazu.');
-                    });
-            }
+
+            app.testInternetAndServerConnection(hasConnection => {
+                if (hasConnection) {
+                    if (app.isArrayNotNullOrEmpty(ankete)) {
+                        app.sendDataByAjax('/Home/AddAnkete', JSON.stringify({ 'ankete': ankete }))
+                            .done(() => {
+                                app.anketaHelper.temporaryAnketeByLocalStorage.remove();
+                                app.anketaHelper.fetchTemporaryAnketeFromLocalStorage();
+                                bootbox.alert('Ankete iz lokalne pohrane su uspješno spremljene u bazu.');
+                            })
+                            .fail((jqXHR, textStatus, errorThrown) => {
+                                app.logRequestFail(textStatus, errorThrown);
+                                bootbox.alert('Ankete nisu uspješno spremljene iz lokalne pohrane u bazu.');
+                            });
+                    }
+                }
+            });
         },
-        fetchAnketeFromDB: function () {
+        fetchAnkete: function () {
             var properties = [
                 'IDAnketa',
                 'KucanstvoID',
@@ -67,14 +69,22 @@
                 'Valuta'
             ];
 
-            if (app.checkInternetConnection()) {
-                app.getJson('/Home/GetAnkete', function (data) {
-                    app.bindDataTable('#anketeFromDB', data, properties);
-                    localStorage.ankete = JSON.stringify(data);
-                }, 'Desila se greška prilikom dohvaćanja anketa.');
-            } else {
-                app.bindDataTable('#anketeFromDB', JSON.parse(localStorage.ankete), properties);
-            }
+            app.testInternetAndServerConnection(hasConnection => {
+                if (hasConnection) {
+                    app.anketaHelper.fetchAnketeFromDB(properties);
+                } else {
+                    app.anketaHelper.fetchAnketeFromLocalStorage(properties);
+                }
+            });
+        },
+        fetchAnketeFromDB: function (properties) {
+            app.getJson('/Home/GetAnkete', function (data) {
+                localStorage.ankete = JSON.stringify(data);
+                app.bindDataTable('#anketeFromDB', data, properties);
+            }, 'Desila se greška prilikom dohvaćanja anketa.');
+        },
+        fetchAnketeFromLocalStorage: function (properties) {
+            app.bindDataTable('#anketeFromDB', JSON.parse(localStorage.ankete), properties);
         },
         fetchTemporaryAnketeFromLocalStorage: function () {
             var properties = [
@@ -110,44 +120,20 @@
         }
     }
 
-    function registerServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            try {
-                navigator.serviceWorker.register('sw.js');
-                console.log('SW registered');
-            } catch (error) {
-                console.log('SW failed');
-            }
-        }
-    }
-
-    function checkInternetConnection() {
-        if (navigator.onLine) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     function getJson(url, callback, errorMeesage) {
-        $.getJSON(url, function (data) {
-            callback(data);
-        }).fail(function () {
-            bootbox.alert(errorMeesage);
-        });
+        $.getJSON(url).done(data => callback(data)).fail(() => bootbox.alert(errorMeesage));
     }
 
     function bindDataTable(tableId, data, properties) {
         var tableColumns = [];
 
-        properties.forEach(function (property) {
-            tableColumns.push({ 'mDataProp': property });
-        });
+        properties.forEach(property => tableColumns.push({ 'mDataProp': property }));
 
         $(tableId).DataTable({
             'aaData': data,
             'aoColumns': tableColumns,
-            destroy: true
+            destroy: true,
+            'sScrollX': '100%'
         });
     }
 
@@ -161,19 +147,50 @@
         $(ddlId).select2({
             placeholder: '--- odaberite ---',
             data: data,
-            theme: 'bootstrap4',
-            allowClear: true
+            allowClear: true,
+            theme: "bootstrap4"
         });
+    }
+
+    function logRequestFail(textStatus, errorThrown) {
+        console.log('Request Failed: ' + textStatus + ', ' + errorThrown);
+    }
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+            .then(reg => {
+                console.log('[Service Worker] Registered')
+                reg.addEventListener('updatefound', () => {
+                    if (reg.installing) {
+                        reg.installing.addEventListener('statechange', () => {
+                            if (reg.waiting) {
+                                if (navigator.serviceWorker.controller) {
+                                    bootbox.alert('Aplikacija je ažuriranja na zadnju verziju.');
+                                }
+                            }
+                        });
+                    }
+                });
+            })
+            .catch(error => console.log('[Service Worker] Error while registering: ' + error));
+    }
+
+    function testInternetAndServerConnection(callback) {
+        if (navigator.onLine) {
+            $.get({ url: '/Test/Test', method: 'POST' }).done(() => callback(true)).fail(() => callback(false));
+        } else {
+            callback(false);
+        }
     }
 
     return {
         anketaHelper: anketaHelper,
         sendDataByAjax: sendDataByAjax,
         isArrayNotNullOrEmpty: isArrayNotNullOrEmpty,
-        registerServiceWorker: registerServiceWorker,
-        checkInternetConnection: checkInternetConnection,
         getJson: getJson,
         bindDataTable: bindDataTable,
-        bindSelect2: bindSelect2
+        bindSelect2: bindSelect2,
+        logRequestFail: logRequestFail,
+        testInternetAndServerConnection: testInternetAndServerConnection
     }
 })();

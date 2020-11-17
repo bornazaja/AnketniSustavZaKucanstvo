@@ -27,7 +27,7 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
             return View();
         }
 
-        public ActionResult SaveAnkete(List<AnketaDto> ankete)
+        public ActionResult AddAnkete(List<AnketaDto> ankete)
         {
             try
             {
