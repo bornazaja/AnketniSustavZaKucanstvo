@@ -7,11 +7,11 @@ namespace AnketniSustavZaKucanstvoLibrary.DAL.Repositories.Implementations
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        public void Add(T model)
+        public void AddRange(IEnumerable<T> modelList)
         {
             using (var db = new AnketniSustavZaKucanstvoEntities())
             {
-                db.Set<T>().Add(model);
+                db.Set<T>().AddRange(modelList);
                 db.SaveChanges();
             }
         }

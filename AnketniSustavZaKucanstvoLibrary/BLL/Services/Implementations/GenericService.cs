@@ -16,10 +16,10 @@ namespace AnketniSustavZaKucanstvoLibrary.BLL.Services.Implementations
             _mapper = mapper;
         }
 
-        public void Add(TDto dto)
+        public void AddRange(IEnumerable<TDto> dtoList)
         {
-            TModel model = _mapper.Map<TDto, TModel>(dto);
-            _genericRepository.Add(model);
+            IEnumerable<TModel> modelList = _mapper.Map<IEnumerable<TDto>, List<TModel>>(dtoList);
+            _genericRepository.AddRange(modelList);
         }
 
         public IEnumerable<TDto> GetAll()

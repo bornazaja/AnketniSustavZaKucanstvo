@@ -13,27 +13,27 @@
             @Html.ValidationMessageFor(model => model.KucanstvoID, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group mb-3">
-            @Html.Label("Iznos hrane za prošli mjesec:")
-            @Html.EditorFor(model => model.IznosHraneZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
+        <div class="md-form form-group mb-3">
+            @Html.EditorFor(model => model.IznosHraneZaProsliMjesec, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model=> model.IznosHraneZaProsliMjesec, "Iznos hrane za prošli mjesec")
             @Html.ValidationMessageFor(model => model.IznosHraneZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group mb-3">
-            @Html.Label("Iznos računa za prošli mjesec:")
-            @Html.EditorFor(model => model.IznosRacunaZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
+        <div class="md-form form-group mb-3">
+            @Html.EditorFor(model => model.IznosRacunaZaProsliMjesec, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.IznosRacunaZaProsliMjesec, "Iznos računa za prošli mjesec")
             @Html.ValidationMessageFor(model => model.IznosRacunaZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group mb-3">
-            @Html.Label("Iznos zabave za prošli mjesec:")
-            @Html.EditorFor(model => model.IznosZabaveZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
+        <div class="md-form form-group mb-3">
+            @Html.EditorFor(model => model.IznosZabaveZaProsliMjesec, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model=> model.IznosZabaveZaProsliMjesec, "Iznos zabave za prošli mjesec")
             @Html.ValidationMessageFor(model => model.IznosZabaveZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group mb-3">
-            @Html.Label("Iznos ostalih izdataka za prošli mjesec:")
-            @Html.EditorFor(model => model.IznosOstalihIzdatakaZaProsliMjesec, new { htmlAttributes = new { @class = "form-control col" } })
+        <div class="md-form form-group mb-3">
+            @Html.EditorFor(model => model.IznosOstalihIzdatakaZaProsliMjesec, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model=>model.IznosOstalihIzdatakaZaProsliMjesec, "Iznos ostalih izdataka za prošli mjesec")
             @Html.ValidationMessageFor(model => model.IznosOstalihIzdatakaZaProsliMjesec, "", new { @class = "text-danger" })
         </div>
 
@@ -44,7 +44,7 @@
         </div>
 
         <div>
-            <input type="submit" value="Spremi anketu" class="btn btn-primary" />
+            <input type="submit" value="Spremi anketu" class="btn btn-secondary" />
         </div>
     </div>
 }

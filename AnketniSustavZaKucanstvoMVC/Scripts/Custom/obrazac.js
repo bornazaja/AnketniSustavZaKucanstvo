@@ -6,7 +6,7 @@
 $('[type=submit]').click(function (evt) {
     evt.preventDefault();
     var form = $('form');
-    bootbox.confirm('Želite li spremiti ovu anketu?', function (odgovor) {
+    app.dialogHelper.confirm('Želite li spremiti ovu anketu?', odgovor => {
         if (odgovor && form.valid()) {
             saveAnkete();
             $('#myModal').modal('hide');
@@ -22,19 +22,19 @@ function saveAnkete() {
             saveAnketeInLocalStorage();
         }
     });
-};
+}
 
 function saveAnketeInDB() {
     var ankete = JSON.stringify({ 'ankete': [app.anketaHelper.anketaToObj()] });
 
     app.sendDataByAjax('/Home/AddAnkete', ankete)
-        .done(() => bootbox.alert('Anketa je uspješno spremljena u bazu.', () => {
+        .done(() => app.dialogHelper.alert('Anketa je uspješno spremljena u bazu.', () => {
             app.anketaHelper.fetchAnkete();
             resetForm();
         }))
         .fail((jqXHR, textStatus, errorThrown) => {
             app.logRequestFail(textStatus, errorThrown);
-            bootbox.alert('Desila se greška prilikom spremanja ankete u bazu.');
+            app.dialogHelper.alert('Desila se greška prilikom spremanja ankete u bazu.');
             saveAnketeInLocalStorage();
         });
 }
@@ -42,7 +42,7 @@ function saveAnketeInDB() {
 function saveAnketeInLocalStorage() {
     app.anketaHelper.temporaryAnketeByLocalStorage.push();
     app.anketaHelper.fetchTemporaryAnketeFromLocalStorage();
-    bootbox.alert('Anketa je uspješno spremljena lokalno.', () => resetForm());
+    app.dialogHelper.alert('Anketa je uspješno spremljena lokalno.', () => resetForm());
 }
 
 function resetForm() {

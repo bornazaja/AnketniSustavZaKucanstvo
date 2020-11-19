@@ -31,10 +31,7 @@ namespace AnketniSustavZaKucanstvoMVC.Controllers
         {
             try
             {
-                foreach (var anketa in ankete)
-                {
-                    _anketaService.Add(anketa);
-                }
+                _anketaService.AddRange(ankete);
 
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }

@@ -4,7 +4,7 @@ namespace AnketniSustavZaKucanstvoLibrary.BLL.Services.Interfaces
 {
     public interface IGenericService<TModel, TDto> where TModel : class where TDto : class
     {
-        void Add(TDto dto);
+        void AddRange(IEnumerable<TDto> dtoList);
         IEnumerable<TDto> GetAll();
     }
 }

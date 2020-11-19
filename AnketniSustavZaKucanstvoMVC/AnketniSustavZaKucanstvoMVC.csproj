@@ -128,80 +128,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\datatables-select2.min.css" />
-    <Content Include="Content\datatables.css" />
-    <Content Include="Content\datatables.min.css" />
-    <Content Include="Content\Images\ASZK.png" />
-    <Content Include="Content\Images\Icons\app-icon-144x144.png" />
-    <Content Include="Content\Images\Icons\app-icon-256x256.png" />
-    <Content Include="Content\Images\Icons\app-icon-512x512.png" />
-    <Content Include="Content\Images\Icons\app-icon-96x96.png" />
-    <Content Include="Content\app.css" />
-    <Content Include="Content\select2-bootstrap4.css" />
-    <Content Include="Content\select2-bootstrap4.min.css" />
-    <Content Include="Content\select2.css" />
-    <Content Include="Content\select2.min.css" />
-    <Content Include="Scripts\Custom\index.js" />
-    <Content Include="Scripts\datatables-select2.min.js" />
-    <Content Include="Scripts\datatables.js" />
-    <Content Include="Scripts\datatables.min.js" />
-    <Content Include="Scripts\Custom\app.js" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\custom\app.css" />
+    <Content Include="Content\datatables\DataTables-1.10.22\images\sort_asc.png" />
+    <Content Include="Content\datatables\DataTables-1.10.22\images\sort_asc_disabled.png" />
+    <Content Include="Content\datatables\DataTables-1.10.22\images\sort_both.png" />
+    <Content Include="Content\datatables\DataTables-1.10.22\images\sort_desc.png" />
+    <Content Include="Content\datatables\DataTables-1.10.22\images\sort_desc_disabled.png" />
+    <Content Include="Content\datatables\datatables.css" />
+    <Content Include="Content\datatables\datatables.min.css" />
+    <Content Include="Content\images\ASZK.png" />
+    <Content Include="Content\images\icons\app-icon-144x144.png" />
+    <Content Include="Content\images\icons\app-icon-256x256.png" />
+    <Content Include="Content\images\icons\app-icon-512x512.png" />
+    <Content Include="Content\images\icons\app-icon-96x96.png" />
+    <Content Include="Content\select2\select2.css" />
+    <Content Include="Content\select2\select2.min.css" />
+    <Content Include="Scripts\bootbox\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\custom\index.js" />
+    <Content Include="Scripts\custom\app.js" />
     <Content Include="Global.asax" />
     <Content Include="manifest.json" />
-    <Content Include="Scripts\bootbox.min.js" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
-    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
-    <Content Include="Scripts\jquery-3.0.0.js" />
-    <Content Include="Scripts\jquery-3.0.0.min.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.0.0.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\Custom\obrazac.js" />
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.min.js" />
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.min.js" />
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\custom\obrazac.js" />
+    <Content Include="Scripts\datatables\datatables.js" />
+    <Content Include="Scripts\datatables\datatables.min.js" />
+    <Content Include="Scripts\jquery\jquery-3.0.0.js" />
+    <Content Include="Scripts\jquery\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery\jquery.validate.js" />
+    <Content Include="Scripts\jquery\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mdb\mdb.min.js" />
+    <Content Include="Scripts\modernizr\modernizr-2.6.2.js" />
+    <Content Include="Scripts\popper\popper.js" />
+    <Content Include="Scripts\popper\popper.min.js" />
+    <Content Include="Scripts\select2\select2.js" />
+    <Content Include="Scripts\select2\select2.min.js" />
     <Content Include="service-worker.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -220,15 +183,6 @@
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_Obrazac.cshtml" />
-    <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Scripts\umd\popper.js.map" />
-    <Content Include="Scripts\umd\popper-utils.min.js.map" />
-    <Content Include="Scripts\umd\popper-utils.js.map" />
-    <Content Include="Scripts\README.md" />
-    <Content Include="Scripts\popper.min.js.map" />
-    <Content Include="Scripts\popper.js.map" />
-    <Content Include="Scripts\popper-utils.min.js.map" />
-    <Content Include="Scripts\popper-utils.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -245,9 +199,6 @@
       <Project>{e17168b7-3167-474b-a7ca-2c692bf11fe1}</Project>
       <Name>AnketniSustavZaKucanstvoLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

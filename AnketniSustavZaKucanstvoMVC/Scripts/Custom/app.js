@@ -42,11 +42,11 @@
                             .done(() => {
                                 app.anketaHelper.temporaryAnketeByLocalStorage.remove();
                                 app.anketaHelper.fetchTemporaryAnketeFromLocalStorage();
-                                bootbox.alert('Ankete iz lokalne pohrane su uspješno spremljene u bazu.');
+                                app.dialogHelper.alert('Ankete iz lokalne pohrane su uspješno spremljene u bazu.');
                             })
                             .fail((jqXHR, textStatus, errorThrown) => {
                                 app.logRequestFail(textStatus, errorThrown);
-                                bootbox.alert('Ankete nisu uspješno spremljene iz lokalne pohrane u bazu.');
+                                app.dialogHelper.alert('Ankete nisu uspješno spremljene iz lokalne pohrane u bazu.');
                             });
                     }
                 }
@@ -102,6 +102,43 @@
         }
     };
 
+    var dialogHelper = {
+        alert: function (message, callback = null) {
+            bootbox.alert({
+                message: message,
+                buttons: {
+                    ok: {
+                        label: 'OK',
+                        className: 'btn-secondary'
+                    }
+                },
+                callback: () => {
+                    if (callback != null) {
+                        callback();
+                    }
+                }
+            });
+        },
+        confirm: function (message, callback) {
+            bootbox.confirm({
+                message: message,
+                buttons: {
+                    confirm: {
+                        label: 'OK',
+                        className: 'btn-secondary'
+                    },
+                    cancel: {
+                        label: 'Odustani',
+                        className: 'btn-outline-secondary'
+                    }
+                },
+                callback: result => {
+                    callback(result);
+                }
+            });
+        }
+    };
+
     function sendDataByAjax(url, data) {
         return $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -121,7 +158,7 @@
     }
 
     function getJson(url, callback, errorMeesage) {
-        $.getJSON(url).done(data => callback(data)).fail(() => bootbox.alert(errorMeesage));
+        $.getJSON(url).done(data => callback(data)).fail(() => app.dialogHelper.alert(errorMeesage));
     }
 
     function bindDataTable(tableId, data, properties) {
@@ -147,13 +184,20 @@
         $(ddlId).select2({
             placeholder: '--- odaberite ---',
             data: data,
-            allowClear: true,
-            theme: "bootstrap4"
+            allowClear: true
         });
     }
 
     function logRequestFail(textStatus, errorThrown) {
         console.log('Request Failed: ' + textStatus + ', ' + errorThrown);
+    }
+
+    function testInternetAndServerConnection(callback) {
+        if (navigator.onLine) {
+            $.get({ url: '/Test/Test', method: 'POST' }).done(() => callback(true)).fail(() => callback(false));
+        } else {
+            callback(false);
+        }
     }
 
     if ('serviceWorker' in navigator) {
@@ -175,14 +219,6 @@
             .catch(error => console.log('[Service Worker] Error while registering: ' + error));
     }
 
-    function testInternetAndServerConnection(callback) {
-        if (navigator.onLine) {
-            $.get({ url: '/Test/Test', method: 'POST' }).done(() => callback(true)).fail(() => callback(false));
-        } else {
-            callback(false);
-        }
-    }
-
     return {
         anketaHelper: anketaHelper,
         sendDataByAjax: sendDataByAjax,
@@ -191,6 +227,7 @@
         bindDataTable: bindDataTable,
         bindSelect2: bindSelect2,
         logRequestFail: logRequestFail,
-        testInternetAndServerConnection: testInternetAndServerConnection
+        testInternetAndServerConnection: testInternetAndServerConnection,
+        dialogHelper: dialogHelper
     }
 })();
