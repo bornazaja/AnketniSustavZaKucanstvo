@@ -151,7 +151,6 @@
     <Content Include="Scripts\custom\app.js" />
     <Content Include="Global.asax" />
     <Content Include="manifest.json" />
-    <Content Include="Scripts\custom\obrazac.js" />
     <Content Include="Scripts\datatables\datatables.js" />
     <Content Include="Scripts\datatables\datatables.min.js" />
     <Content Include="Scripts\jquery\jquery-3.0.0.js" />
@@ -183,7 +182,6 @@
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\_Obrazac.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

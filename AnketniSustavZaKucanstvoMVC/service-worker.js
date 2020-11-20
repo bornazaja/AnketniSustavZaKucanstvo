@@ -22,7 +22,6 @@ const FILES_TO_CACHE = [
     '/Content/images/ASZK.png',
     '/Scripts/custom/app.js',
     '/Scripts/custom/index.js',
-    '/Scripts/custom/obrazac.js',
     '/Scripts/modernizr/modernizr-2.6.2.js',
     '/Scripts/jquery/jquery-3.0.0.min.js',
     '/Scripts/jquery/jquery.validate.min.js',

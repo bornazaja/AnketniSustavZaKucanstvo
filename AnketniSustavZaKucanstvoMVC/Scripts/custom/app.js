@@ -169,8 +169,8 @@
         $(tableId).DataTable({
             'aaData': data,
             'aoColumns': tableColumns,
-            destroy: true,
-            'sScrollX': '100%'
+            'sScrollX': '100%',
+            destroy: true
         });
     }
 
