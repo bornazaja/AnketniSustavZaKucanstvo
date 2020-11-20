@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\custom\app.css" />
+    <Content Include="Content\custom\custom-bootstrap.css" />
     <Content Include="Content\datatables\DataTables-1.10.22\images\sort_asc.png" />
     <Content Include="Content\datatables\DataTables-1.10.22\images\sort_asc_disabled.png" />
     <Content Include="Content\datatables\DataTables-1.10.22\images\sort_both.png" />

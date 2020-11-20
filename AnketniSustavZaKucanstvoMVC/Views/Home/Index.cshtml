@@ -9,6 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anketni sustav za kućanstvo</title>
+    <link href="~/Content/custom/custom-bootstrap.css" rel="stylesheet" />
     <link href="~/Content/custom/app.css" rel="stylesheet" />
     <link href="~/Content/datatables/datatables.min.css" rel="stylesheet" />
     <link href="~/Content/select2/select2.min.css" rel="stylesheet" />
@@ -17,14 +18,10 @@
     <link rel="shortcut icon" href="#" />
 </head>
 <body>
-    <header class="fixed-top bg-primary">
-        <div>
-            <h4 class="text-white m-3">Anketni sustav za kućanstvo</h4>
-        </div>
-    </header>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="navbar-brand">Anketni sustav za kućanstvo</div>
+    </nav>
 
-    <br />
-    <br />
     <br />
 
     <div class="container">
@@ -33,7 +30,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Obrazac za anketu</h5>
+                        <h5 class="modal-title font-weight-bold">Obrazac za anketu</h5>
                         <button type="button" class="close pull-lg-right" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -49,10 +46,8 @@
         <br />
 
         <div class="card">
-            <div class="card-header">
-                <h5>Ankete iz baze</h5>
-            </div>
             <div class="card-body">
+                <h5 class="font-weight-bold mb-4">Ankete iz baze</h5>
                 <table id="anketeFromDB" class="table table-striped nowrap">
                     <thead>
                         <tr>
@@ -76,13 +71,10 @@
         </div>
 
         <br />
-        <br />
 
         <div class="card">
-            <div class="card-header">
-                <h5>Privremene ankete iz lokalne pohrane</h5>
-            </div>
             <div class="card-body">
+                <h5 class="font-weight-bold mb-4">Privremene ankete iz lokalne pohrane</h5>
                 <table id="temporaryAnketeFromLocalStorage" class="table table-striped nowrap">
                     <thead>
                         <tr>
@@ -99,6 +91,7 @@
         </div>
 
         <br />
+
     </div>
 
     <script src="~/Scripts/jquery/jquery-3.0.0.min.js"></script>
