@@ -209,7 +209,7 @@
                         reg.installing.addEventListener('statechange', () => {
                             if (reg.waiting) {
                                 if (navigator.serviceWorker.controller) {
-                                    bootbox.alert('Aplikacija je ažuriranja na zadnju verziju.');
+                                    app.dialogHelper.alert('Aplikacija je ažuriranja na zadnju verziju.');
                                 }
                             }
                         });
