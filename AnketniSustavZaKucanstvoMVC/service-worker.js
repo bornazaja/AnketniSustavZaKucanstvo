@@ -7,7 +7,7 @@ const FILES_TO_CACHE = [
     '/Home/GetKucanstva',
     '/Home/GetValute',
     '/Content/custom/app.css',
-    '/Content/custom/custom-bootstrap.css',
+    '/Content/custom/custom-bootstrap.min.css',
     '/Content/datatables/datatables.min.css',
     '/Content/datatables/DataTables-1.10.22/images/sort_asc.png',
     '/Content/datatables/DataTables-1.10.22/images/sort_asc_disabled.png',

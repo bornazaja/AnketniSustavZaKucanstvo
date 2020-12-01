@@ -10,8 +10,9 @@ Ovo je aplikacija koja se bavi anketiranjem kućanstava, odnosno prikupljanjem p
 * Progressive web appliaction (PWA)
 
 ### Zahtjevi
-* Instaliran Visual Studio
-* Instaliran MS SQL Server Managament Studio
+* Instaliran Visual Studio 2012 ili više
+* Instaliran MS SQL Server 2012 ili više
+* Instaliran MS SQL Server Managament Studio 2012 ili više
 
 ### Upute
 * Preuzeti i *unzipati* projekt
