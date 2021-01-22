@@ -24,4 +24,4 @@ Ovo je aplikacija koja se bavi anketiranjem kućanstava, odnosno prikupljanjem p
 Preporuka je da se aplikacija isproba u Google Chromu za najbolje iskustvo.
 
 ### Testiranje "offline" *moda*
-Za testiranje "offline" *moda*, potrebno je otići u opciju `More tools` -> `Developer tools` -> tab `Application` -> opcija u meniu `Service Workers` te označiti *checkbox* "offline".
+Za testiranje "offline" *moda*, potrebno je otići u opciju `More tools` -> `Developer tools` -> tab `Application` -> opcija u meniu `Service Workers` te označiti *checkbox* `Offline`.
